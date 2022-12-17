@@ -1,0 +1,16 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Vinyl&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+header{
+  background-color: lightseagreen;  
+  height: 100px;  
+  font-family: 'Rubik Vinyl', cursive;
+  font-size: x-large;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
