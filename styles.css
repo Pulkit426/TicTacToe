@@ -14,3 +14,21 @@ header{
   align-items: center;
   justify-content: center;
 }
+
+.game-board-container{
+    background-color: lightcoral;
+    display: grid;
+    grid-template-columns: repeat(3,110px);
+    grid-template-rows: repeat(3,110px);
+    justify-content: center;
+    padding: 20px;
+}
+
+.game-tile{
+    border: 2px solid black;
+}
+
+.game-tile:hover{
+    background-color: lightsalmon;
+    cursor: pointer;
+}
