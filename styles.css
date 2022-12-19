@@ -15,6 +15,15 @@ header{
   justify-content: center;
 }
 
+.game-status{
+    background-color: lightcoral;
+    height: 8
+    0px;
+    padding: 20px;
+    font-size: 46px;
+    text-align: center;
+}
+
 .game-board-container{
     background-color: lightcoral;
     display: grid;
@@ -35,5 +44,25 @@ header{
 
 .game-tile:hover{
     background-color: lightsalmon;
+    cursor: pointer;
+}
+
+.restart-button-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+    background-color: lightcoral;
+}
+
+.restart{
+    height: 70px;
+    width: 125px;
+    font-size: larger;
+    font-weight: 800;
+    border-radius: 10px;
+}
+
+.restart:hover{
     cursor: pointer;
 }
