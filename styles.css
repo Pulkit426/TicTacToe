@@ -66,3 +66,16 @@ header{
 .restart:hover{
     cursor: pointer;
 }
+
+footer{
+    background-color: lightcoral;
+    padding: 10px;
+    padding-top: 50px;
+    width: 100%;
+    font-size: 20px;
+    text-align: center;
+}
+
+.fa-github{
+    color: black;
+}
