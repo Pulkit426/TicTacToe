@@ -14,8 +14,9 @@ console.log(gameBoardContainer)
 
 
 const gameBoard = (() => {
-    var gameTileValues = new Array(9).fill(null)
+    var gameTileValues = new Array(9).fill('')
     var currentChance = 'X'
+    var winStatus = false
 
     const resetGame = () => {
         gameTiles.forEach( gameTile => {
@@ -23,65 +24,67 @@ const gameBoard = (() => {
         })
         
         gameTileValues.forEach( (tileValue,index) => {
-            gameTileValues[index]=null
+            gameTileValues[index]=''
         })
 
         currentChance = 'X'
+        winStatus = false
         updateGamestatus()
     }
 
-    const updateGamestatus = () => {
+    const updateGamestatus = (status) => {
+
+        status = status || "Player X's turn"
 
         let gameStatus = document.querySelector('.game-status')
-        gameStatus.innerText = `Player ${currentChance} Turn`
+        gameStatus.innerText = status
     }
 
     const updateTileValue = (gameTile) => {
 
-        if(gameTileValues[gameTile.id])
+        if(winStatus || gameTileValues[gameTile.id])
         return
 
         gameTile.innerText = currentChance
         gameTileValues[gameTile.id] = currentChance
+
+       if(checkForWinner(gameTile.id, currentChance )){
+        updateGamestatus(`Player ${currentChance} Won`)
+        winStatus = true
+       }
+
+       else if(checkForDraw()){
+        updateGamestatus('Match Drawn')
+       }
+
+       else{
         currentChance = currentChance==='X' ? 'O' : 'X'
-        showCurrentValues()
-        checkForWinner()
-        updateGamestatus()
+        updateGamestatus(`Player ${currentChance}'s Turn`)
+       }
     }
 
-    const checkForWinner = () => {
-        if(gameTileValues[0] === gameTileValues[1] && gameTileValues[1] === gameTileValues[2]==='X')
-        alert("1Winner")
+    const checkForWinner = (tileId, currentPlayer) => {
+        const winningCombination = [
+            [0,1,2], [3,4,5], [6,7,8],
+            [0,3,6], [1,4,7], [2,5,8],
+            [0,4,8], [2,4,6]
+        ]
 
-        else if(gameTileValues[3] === gameTileValues[4] && gameTileValues[4] === gameTileValues[5]==='X')
-        alert("2Winner")
-
-        else if(gameTileValues[6] === gameTileValues[7] && gameTileValues[7] === gameTileValues[8]==='X')
-        alert("3Winner")
-
-        else if(gameTileValues[0] === gameTileValues[3] && gameTileValues[3] === gameTileValues[6]==='X')
-        alert("4Winner")
-
-        else if(gameTileValues[1] === gameTileValues[4] && gameTileValues[4] === gameTileValues[7]==='X')
-        alert("5Winner")
-
-        else if(gameTileValues[2] === gameTileValues[5] && gameTileValues[5] === gameTileValues[8]==='X')
-        alert("6Winner")
-
-        else if(gameTileValues[0] === gameTileValues[4] && gameTileValues[4] === gameTileValues[8]==='X')
-        alert("7Winner")
-
-        else if(gameTileValues[2] === gameTileValues[4] && gameTileValues[4] === gameTileValues[6]==='X')
-        alert("8Winner")
+        return winningCombination.filter(combination => combination.includes(Number(tileId)) )
+                                  .some(combination => 
+                                    combination.every(id => gameTileValues[id]===currentPlayer))
     }
 
-    const showCurrentValues = () => console.log(gameTileValues)
+
+    const checkForDraw = () => {
+        if(gameTileValues.every( item => item==='X' || item==='O'))
+        return true
+    }
 
     updateGamestatus()
-    return {resetGame, updateTileValue, showCurrentValues}
+    return {resetGame, updateTileValue}
 })()
 
-console.log(gameBoard)
 
 const gameTiles = document.querySelectorAll('.game-tile')
 console.log(gameTiles)
